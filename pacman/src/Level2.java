@@ -24,7 +24,6 @@ public class Level2 extends JPanel implements ActionListener {
 
     private int N_GHOSTS = 6;
     private int lives, score;
-    private int[] dx, dy;
     private int[] ghost_x, ghost_y, ghost_dx, ghost_dy, ghostSpeed;
 
     private Image heart, ghost;
@@ -86,8 +85,6 @@ public class Level2 extends JPanel implements ActionListener {
         ghost_y = new int[MAX_GHOSTS];
         ghost_dy = new int[MAX_GHOSTS];
         ghostSpeed = new int[MAX_GHOSTS];
-        dx = new int[4];
-        dy = new int[4];
         
         timer = new Timer(100, this);
         timer.start();
@@ -96,9 +93,7 @@ public class Level2 extends JPanel implements ActionListener {
     private void playGame(Graphics2D g2d) {
 
         if (dying) {
-
             death();
-
         } else {
 
             movePacman();
@@ -109,7 +104,6 @@ public class Level2 extends JPanel implements ActionListener {
     }
 
     private void showIntroScreen(Graphics2D g2d) {
- 
     	String start = "Press SPACE to start";
         g2d.setColor(Color.yellow);
         g2d.drawString(start, (SCREEN_SIZE)/4, 150);
@@ -127,7 +121,6 @@ public class Level2 extends JPanel implements ActionListener {
     }
 
     private void checkMaze() {
-
         int i = 0;
         boolean finished = true;
 
@@ -207,15 +200,15 @@ public class Level2 extends JPanel implements ActionListener {
             drawGhost(g2d, ghost_x[i] + 1, ghost_y[i] + 1);
     
             // Check collision with Pac-Man
-            checkCollisionWithPacman(i);
+            if (pacman_x > (ghost_x[i] - 12) && pacman_x < (ghost_x[i] + 12)
+                    && pacman_y > (ghost_y[i] - 12) && pacman_y < (ghost_y[i] + 12)
+                    && inGame) {
+
+                dying = true;
+            }
         }
     }
     
-    private void checkCollisionWithPacman(int ghostIndex) {
-        if (pacman_x == ghost_x[ghostIndex] && pacman_y == ghost_y[ghostIndex] && inGame) {
-            dying = true; // Trigger Pac-Man's death
-        }
-    }
     
     private boolean isMovePossible(int pos, int dx, int dy) {
         // Calculate new position in the grid
@@ -244,7 +237,7 @@ public class Level2 extends JPanel implements ActionListener {
 
     private void drawGhost(Graphics2D g2d, int x, int y) {
     	g2d.drawImage(ghost, x, y, this);
-        }
+    }
 
     private void movePacman() {
 
@@ -410,7 +403,6 @@ public class Level2 extends JPanel implements ActionListener {
         g2d.dispose();
     }
 
-
     //controls
     class TAdapter extends KeyAdapter {
 
@@ -443,11 +435,9 @@ public class Level2 extends JPanel implements ActionListener {
             }
         }
 }
-
 	
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
-		
-	}
+}

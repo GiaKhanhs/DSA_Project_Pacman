@@ -243,7 +243,12 @@ public class Level3 extends JPanel implements ActionListener {
             drawGhost(g2d, ghost_x[i] + 1, ghost_y[i] + 1);
     
             // Check collision with Pac-Man
-            checkCollisionWithPacman(i);
+            if (pacman_x > (ghost_x[i] - 12) && pacman_x < (ghost_x[i] + 12)
+                    && pacman_y > (ghost_y[i] - 12) && pacman_y < (ghost_y[i] + 12)
+                    && inGame) {
+
+                dying = true;
+            }
         }
     }
     
@@ -327,15 +332,6 @@ public class Level3 extends JPanel implements ActionListener {
         return movePossible;
     }
     
-    
-    private void checkCollisionWithPacman(int ghostIndex) {
-        if (Math.abs(pacman_x - ghost_x[ghostIndex]) < BLOCK_SIZE / 2 &&
-            Math.abs(pacman_y - ghost_y[ghostIndex]) < BLOCK_SIZE / 2 && inGame) {
-            dying = true; // Trigger Pac-Man's death
-        }
-    }
-    
-
     private void drawGhost(Graphics2D g2d, int x, int y) {
     	g2d.drawImage(ghost, x, y, this);
         }

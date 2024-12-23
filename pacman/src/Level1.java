@@ -441,10 +441,8 @@ public class Level1 extends JPanel implements ActionListener {
         }
 }
 
-	
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
-		
-	}
+}
