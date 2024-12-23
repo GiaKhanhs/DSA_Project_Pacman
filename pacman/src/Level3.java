@@ -187,10 +187,7 @@ public class Level3 extends JPanel implements ActionListener {
         continueLevel();
     }
 
-    private int frameCount = 0;
-
     private void moveGhosts(Graphics2D g2d) {
-        frameCount++;
         for (int i = 0; i < N_GHOSTS; i++) {
             int ghostGridX = ghost_x[i] / BLOCK_SIZE;
             int ghostGridY = ghost_y[i] / BLOCK_SIZE;
